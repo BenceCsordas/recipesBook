@@ -17,13 +17,29 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+
+}
+.HomeContainer div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    gap: 10px;
+    background-color: var(--accent);
+    color: white;
 }
 
 form {
     background-color: var(--accent);
-    max-width: 600px;
+    max-width: 400px;
     padding: 15px;
-    min-height: 400px;
+    
     color: white;
     text-align: center;
     display: flex;
@@ -32,13 +48,14 @@ form {
     border-radius: 10px;
     overflow:auto;
 }
-form button {
+form button, .HomeContainer div button, .HomeContainer span {
     padding: 5px;
     border-radius: 10px;
     border: none;
     background-color: var(--primary);
     color: white;
     font-weight: bold;
+    cursor: pointer;
 }
 
 form input {
@@ -58,4 +75,32 @@ textarea {
 ::-webkit-scrollbar-thumb{
     background: var(--disabled);
     border-radius: 5px;
+}
+
+.signinup {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary);
+}
+
+.signinform, .signupform, .HomeContainer div {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.signinform input, .signupform input{
+    border-radius: 10px;
+    padding: 5px;
+}
+.signinform input:hover, .signupform input:hover{
+    border: 2px solid var(--secondary);
+}
+
+.HomeContainer span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 10px;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+   
 }

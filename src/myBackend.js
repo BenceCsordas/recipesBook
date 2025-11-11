@@ -1,5 +1,5 @@
 import axios from "axios"
-import {addDoc, collection, serverTimestamp} from "firebase/firestore"
+import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot, deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import {db} from "./fireBaseApp"
 import imageCompression from "browser-image-compression"
 
@@ -39,5 +39,52 @@ export const addRecipe = async (recipe, file) => {
         }
     } catch (error) {
         console.log("Nem sikerült hozzáadni! " + error)
+    }
+}
+
+//receptek realtime olvasása: onSnapshot()
+export const readRecipes = async (setRecipes) => {
+    const collectionref = collection(db, "recipes")
+    const q = query(collectionref, orderBy("timestamp", "desc"))
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+        setRecipes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
+    })
+    return unsubscribe
+}
+
+//recept törlése id alapján:
+export const deleteRecipe = async (id, deleteUrl) => {
+    //await axios.get(deleteUrl)
+    const docRef = doc(db, "recipes", id)
+    await deleteDoc(docRef)
+}
+
+//egyetlen recept olvasása:
+export const readRecipe = async (id, setRecipe) => {
+    const docRef = doc(db, "recipes", id)
+    const docData = await getDoc(docRef)
+    setRecipe(docData.data())
+}
+
+//update
+export const updateRecipe = async (id, updatedData, file) => {
+    let imgUrl = updatedData.imgUrl || ''
+    let deleteUrl = updatedData.deleteUrl || ''
+
+    try {
+        if (file) {
+            const compressed = await imageCompression(file, { maxWidthOrHeight: 800, useWebWorker: true })
+            const result = await uploadToIMGBB(compressed)
+            if (result) {
+                imgUrl = result.url
+                deleteUrl = result.delete_url
+            }
+
+        }
+        const docRef = doc(db, 'recipes', id)
+        await updateDoc(docRef, { ...updatedData, imgUrl, deleteUrl, updateAt: serverTimestamp()})
+
+    } catch (error) {
+        console.log("nem sikerült a módosítás: " + error)
     }
 }

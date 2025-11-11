@@ -6,10 +6,16 @@ export const Home = () => {
 
   return (
     <div className="HomeContainer">
-      <h1>RecipeBook</h1>
+      <span onClick={() => navigate("/signin")}>
+          Bejelentkezés
+      </span>
+      <div>
+        <h1>RecipeBook</h1>
       <button onClick={() => navigate("/recipes")}>
         Főzz, posztolj, inspirálj !
       </button>
+      </div>
+      
     </div>
   );
 };
