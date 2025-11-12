@@ -19,8 +19,8 @@ export const RecipesForm = () => {
   const navigate = useNavigate()
 
   const {id} = useParams()
-  console.log(id);
-  console.log(recipe)
+  //console.log(id);
+  //console.log(recipe)
 
   useEffect(()=>{
     if(id)
@@ -90,7 +90,7 @@ export const RecipesForm = () => {
         </div>
       )}
       <div>
-        <FaPlus onClick={() => setIngredients([...ingredients, ""])} />
+        <FaPlus onClick={() => setIngredients([...ingredients, ""])} style={{margin:"5px"}}/>
       </div>
     </div>
 

@@ -6,7 +6,7 @@ import { RxAvatar } from "react-icons/rx";
 
 export const Header = () => {
      const navigate = useNavigate()
-     const {user} = useContext(MyUserContext)
+     const {user, logoutUser} = useContext(MyUserContext)
      console.log(user)
   return (
     <header>
@@ -14,16 +14,16 @@ export const Header = () => {
       {user ? 
       
         <div className='headerBtn'>
-            <RxAvatar size={50} style={{color:"white"}}/>
-            <span>
+            <RxAvatar size={50} style={{color:"white"}} title={user?.displayName}/>
+            <span onClick={()=>logoutUser()}>
                 Kijelentkezés
             </span>
         </div>
         :
         <div className='headerBtn'>
             <span onClick={() => navigate("/signin")}>
-          Bejelentkezés
-      </span>
+              Bejelentkezés
+            </span>
       <span onClick={() => navigate("/signup")}>
           Regisztrálás
       </span>
@@ -32,6 +32,14 @@ export const Header = () => {
     }
       
     </header>
+
+
+   
+
+
+
+
+
   )
 }
 

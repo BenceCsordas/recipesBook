@@ -69,6 +69,9 @@ form input {
 textarea {
     min-height: 75px;
     min-width: 300px;
+    border-radius: 10px;
+    padding: 5px;
+    resize: none;
 }
 
 ::-webkit-scrollbar{
@@ -116,6 +119,7 @@ span {
     justify-content: center;
     background-color: var(--secondary);
 }
+
 
 .recipeForm input {
     border-radius: 10px;

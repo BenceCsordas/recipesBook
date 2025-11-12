@@ -9,6 +9,7 @@ import { useState } from 'react';
 export const Recipes = () => {
   const [recipes, setRecipes]=useState([])
 
+  
   const {id} = useParams()
 
   id && console.log(id)
