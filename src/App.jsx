@@ -5,11 +5,14 @@ import { Recipes } from './pages/Recipes'
 import { RecipesForm } from './pages/RecipesForm'
 import { SignIn } from './components/SignIn'
 import { SignUp } from './components/SignUp'
+import { Header } from './components/Header'
 
 function App() {
 
 
   return (
+    <div className="container">
+    <Header/>
     <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path='/recipes' element={<Recipes/>}/>
@@ -18,6 +21,7 @@ function App() {
       <Route path='/signin' element={<SignIn/>}/>
       <Route path='/signup' element={<SignUp/>}/>
     </Routes>
+    </div>
   )
 }
 

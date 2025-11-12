@@ -25,8 +25,7 @@ export const Recipes = () => {
         {recipes && recipes.length>0 && recipes.map(obj=><RecipeCard key={obj.id} {...obj}/>)}
         {recipes && recipes.length==0 && <h4>Nincsenek receptek feltöltve</h4>}
       </div>
-      <FaHouseChimney onClick={()=>navigate("/")} style={{fontSize:"30px",position:"absolute", top:"5px", left:"5px"}}/>
-        <button className='receptFeltoltesGomb' onClick={()=>navigate("/addnew")} style={{position:"absolute", bottom:"5px", right:"5px"}}>Új receptek feltöltése</button>
+        <button className='receptFeltoltesGomb' onClick={()=>navigate("/addnew")} style={{position:"fixed", bottom:"5px", right:"5px"}}>Új receptek feltöltése</button>
     </div>
   )
 }

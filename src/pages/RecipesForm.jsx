@@ -78,36 +78,35 @@ export const RecipesForm = () => {
 
   return (
 
-    <div className='addnewRecipes'>
-      <h1 style={{ textAlign: "center", marginBottom:"10px" }}>új recept feltöltése</h1>
-      <form className='newrecipeForm' onSubmit={handleSubmit}>
+    <div className='recipeForm'>
+  <h1>Új recept feltöltése</h1>
+  <form onSubmit={handleSubmit}>
 
-        <input type="text" style={{border:'2px solid black', margin:'5px', width:"200px", height:"25px"}} placeholder='receptneve' value={name} onChange={(e) => setName(e.target.value)} required />
-        <div >
-          {ingredients.map((item, index) =>
-            <div key={index}>
-              <input style={{border:'2px solid black', margin:"0.5px", width:"200px", height:"25px"}} type="text" value={item} onChange={(e) => handleChangeIngredients(index, e.target.value)} placeholder={`${index + 1}. hozzávaló: `} />
-            </div>
-          )}
-          <div style={{marginTop:"4.5px",margin:"0.5px", width:"200px", height:"25px", display:"flex", justifyContent:"center", fontSize:"25px"}}>
-            <FaPlus style={{backgroundColor:"white", borderRadius:"50%", border:"2px solid black"}} onClick={() => setIngredients([...ingredients, ""])} />
-          </div>
-          
+    <input type="text" placeholder='receptneve' value={name} onChange={(e) => setName(e.target.value)} required />
+    <div>
+      {ingredients.map((item, index) =>
+        <div key={index}>
+          <input type="text" value={item} onChange={(e) => handleChangeIngredients(index, e.target.value)} placeholder={`${index + 1}. hozzávaló: `} />
         </div>
-
-        <textarea style={{border:'2px solid black', margin:"0.5px", marginBottom:"5px", width:"250px", height:"75px"}} value={steps} onChange={(e) => setSteps(e.target.value)} placeholder='Elkészítés lépései' required></textarea>
-
-        <input style={{border:'2px solid black', margin:"0.5px", width:"200px", height:"25px"}} type="text" value={category} onChange={(e) => setCategory(e.target.value)} placeholder='Kategória: ' required />
-        
-        <label htmlFor="file-upload" className='custom-file-upload'>Kép feltöltése</label>
-        <input id="file-upload" style={{marginTop:"6px", marginBottom:"5px", width:"250px", height:"25px"}} type="file" accept='image/*' onChange={handleFileChange}/>
-
-        {preview && <img src={preview} alt='előnézet' style={{maxWidth:"200px", maxHeight:"200", objectFit:"cover", marginBottom:"5PX", border:"2px solid black"}}/>}
-
-        <button style={{border:'2px solid black', margin:"0.5px", width:"200px", height:"25px", backgroundColor:"white", cursor:"pointer"}} type='submit' disabled={loading || (!file&& !preview)}>Mentés</button>
-      </form>
-      {loading&&<div>Loading...</div>}
-      <IoMdClose onClick={() => navigate("/recipes")} style={{ position: "absolute", top: "5px", left: "5px" }} />
+      )}
+      <div>
+        <FaPlus onClick={() => setIngredients([...ingredients, ""])} />
+      </div>
     </div>
+
+    <textarea value={steps} onChange={(e) => setSteps(e.target.value)} placeholder='Elkészítés lépései' required></textarea>
+
+    <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} placeholder='Kategória: ' required />
+    
+    <label htmlFor="file-upload">Kép feltöltése</label>
+    <input id="file-upload" type="file" accept='image/*' onChange={handleFileChange}/>
+
+    {preview && <img src={preview} alt='előnézet' />}
+
+    <button type='submit' disabled={loading || (!file && !preview)}>Mentés</button>
+  </form>
+  {loading && <div>Loading...</div>}
+  <IoMdClose onClick={() => navigate("/recipes")} style={{color:"white", position: "absolute", top: "85px", left: "5px" }} size={50}/>
+</div>
   )
 }
