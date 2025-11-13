@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { MyUserContext } from '../context/MyUserProvider'
+import MyToastify from './MyToastify'
 
 
 export const SignIn = () => {
@@ -29,8 +30,9 @@ export const SignIn = () => {
         <p>Nincs fiókod? Csinálj egyet <a onClick={()=>navigate("/signup")} style={{cursor:"pointer", color:"lightblue"}}>itt</a>!</p>
         <button>Bejelentkezés</button>
       </form>
-      {msg && msg?.err && <p style={{color:"red", fontWeight:"bold"}}>{msg.err}</p>}
-      
+
+      <div><a href="#" onClick={()=>navigate("/pwreset")}>Elfelejtett jelszó</a></div>
+      {msg && <MyToastify {...msg}/>}
     </div>
   )
 }

@@ -74,7 +74,7 @@ textarea {
     resize: none;
 }
 
-::-webkit-scrollbar{
+/* ::-webkit-scrollbar{
     background-color: transparent;
     width: 5px;
     
@@ -82,34 +82,40 @@ textarea {
 ::-webkit-scrollbar-thumb{
     background: var(--disabled);
     border-radius: 5px;
-}
+} */
 
 .signinup, .recipesBase {
     min-height: calc(100vh - 65px);
-    
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: var(--secondary);
 }
 .recipesBase {
-    width: calc(100vw - 5px);
+    width: calc(100vw - 15px);
+}
+.recipesTitle {
+    min-height: calc(100vh - 81px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
-.signinform, .signupform, .HomeContainer div {
+.signinform, .signupform, .HomeContainer div, .pwresetform {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-.signinform input, .signupform input{
+.signinform input, .signupform input,.recipeForm input, .pwresetform input{
     border-radius: 10px;
     padding: 5px;
 }
-.signinform input:hover, .signupform input:hover{
+.signinform input:hover, .signupform input:hover, .pwresetform input:hover{
     border: 2px solid var(--secondary);
 }
 
 span {
-    margin: 10px;
-    
+    margin: 10px;    
 }
 .recipeForm {
     height: calc(100vh - 65px);
@@ -121,13 +127,11 @@ span {
 }
 
 
-.recipeForm input {
-    border-radius: 10px;
-    padding: 5px;
-}
 
 .card {
     
+    height: fit-content;
+    overflow: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -138,13 +142,15 @@ span {
     color: white;
     position: relative;
 }
-.card h1, .signinform h1, .signupform h1 {
+.card h1, .signinform h1, .signupform h1, .pwresetform h3 {
     width: 100%;
     border-bottom: 1px solid white;
     margin-bottom: 10px;
     padding-bottom: 4px;
    
 }
+
+
 .cardHead {
     display: flex;
     align-items: center;

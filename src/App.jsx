@@ -6,6 +6,7 @@ import { RecipesForm } from './pages/RecipesForm'
 import { SignIn } from './components/SignIn'
 import { SignUp } from './components/SignUp'
 import { Header } from './components/Header'
+import PwReset from './components/pwReset'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
       <Route path='/edit/:id' element={<RecipesForm/>}/>
       <Route path='/signin' element={<SignIn/>}/>
       <Route path='/signup' element={<SignUp/>}/>
+      <Route path='/pwreset' element={<PwReset/>}/>
     </Routes>
     </div>
   )

@@ -7,7 +7,7 @@ import { RxAvatar } from "react-icons/rx";
 export const Header = () => {
      const navigate = useNavigate()
      const {user, logoutUser} = useContext(MyUserContext)
-     console.log(user)
+    console.log(user)
   return (
     <header>
         <FaHouseChimney onClick={()=>navigate("/")} style={{fontSize:"30px"}} className='house'/>

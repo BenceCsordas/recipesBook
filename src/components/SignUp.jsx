@@ -1,22 +1,32 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { MyUserContext } from '../context/MyUserProvider'
+import MyToastify from './MyToastify'
 
 
 export const SignUp = () => {
     const navigate = useNavigate()
 
+    const [loading, setLoading] = useState(false)
     const {signUpUser, msg} = useContext(MyUserContext)
 
       
 
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
-        const data = new FormData(event.currentTarget)
-        //console.log(data.get("email"), data.get("password"), data.get("displayName"))
-        signUpUser(data.get("email"), data.get("password"), data.get("displayName"))
-        event.currentTarget.reset()
+        setLoading(true)
+        try {
+          const data = new FormData(event.currentTarget)
+          //console.log(data.get("email"), data.get("password"), data.get("displayName"))
+          await signUpUser(data.get("email"), data.get("password"), data.get("displayName"))
+          event.currentTarget.reset()
+          
+        } catch (error) {
+          console.log(error)
+        }finally{
+          setLoading(false)
+        }
       }
 
   return (
@@ -28,9 +38,10 @@ export const SignUp = () => {
         <input name='email' type="email" placeholder='Email' required/>
         <input name='password' type="password"  placeholder='Jelszó' required/>
         <p>Van már fiókod? Jelentkezz be <a onClick={()=>navigate("/signin")} style={{cursor:"pointer", color:"lightblue"}}>itt</a>!</p>
-        <button>Regisztráció</button>
+        <button disabled={loading}>{loading ? "Regisztráció folyamatban" : "Regisztráció"}</button>
       </form>
-        {msg && (msg?.err || msg?.signUp) && <p style={{color:"red", fontWeight:"bold"}}>{msg?.err || msg?.signUp}</p>}
+        
+        {msg && <MyToastify {...msg}/>}
     </div>
   )
 }

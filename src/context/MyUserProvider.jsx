@@ -1,13 +1,16 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
+import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
 import { createContext } from 'react'
 import { auth } from '../fireBaseApp'
 import { disableNetwork } from 'firebase/firestore'
+import { useNavigate } from 'react-router'
 
 export const  MyUserContext =  createContext() //tartály az adatoknak
 export const MyUserProvider = ({children}) => {
     const [user, setUser] = useState(null)
     const [msg, setMsg] = useState({})
+
+    const navigate = useNavigate()
 
     useEffect(() =>{
       const unsubscribe = onAuthStateChanged(auth, (currentUser) =>{
@@ -25,8 +28,8 @@ export const MyUserProvider = ({children}) => {
           
           console.log("Aktiválja az e-mail címét!")
           console.log("Sikeres regisztráció!")
-          setMsg({signUp:"Kattints az email címedre küldött aktiváló linkre!"})
-          setMsg(prev => delete prev.err)
+          setMsg(prev=>({...prev}, {signUp:"Kattints az email címedre küldött aktiváló linkre!", info:"Kattints az email címedre küldött aktiváló linkre!"}))
+           
           logoutUser()
         } catch (error) {
           console.log(error)
@@ -36,7 +39,7 @@ export const MyUserProvider = ({children}) => {
     
     const logoutUser = async () => {
       await signOut(auth)
-      setMsg(prev => delete prev.signIn)
+      
     }
 
     const signInUser = async (email, password) => {
@@ -45,12 +48,12 @@ export const MyUserProvider = ({children}) => {
         console.log("Sikeres bejelentkezés!")
         const currentUser = auth.currentUser
         if(!currentUser.emailVerified){
-          setMsg("Kérlek kattints az aktiváló linkre")
-          setMsg(prev => delete prev.signIn)
+          setMsg({err:"Kérlek kattints az aktiváló linkre"})
+          
           logoutUser()
           return
         }
-        setMsg(prev => delete prev.err)
+        
         setMsg({signIn:true})
       } catch (error) {
         console.log(error)
@@ -58,10 +61,23 @@ export const MyUserProvider = ({children}) => {
       }
     }
 
+    const resetPassword = async (email) => {
+      let success = false
+      try {
+        await sendPasswordResetEmail(auth, email)
+        setMsg({resetPw:"A jelszó visszaállítási email elküldve!"})
+        success = true
+      } catch (error) {
+        setMsg({err:error})
+      }finally{
+        if(success) navigate("/signin")
+      }
+    }
+
 
     return (
         <div>
-          <MyUserContext.Provider value={{user, signUpUser, logoutUser, signInUser, msg}}>
+          <MyUserContext.Provider value={{user, signUpUser, logoutUser, signInUser, msg, setMsg, resetPassword}}>
             {children}
           </MyUserContext.Provider>
         </div>
