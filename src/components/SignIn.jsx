@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { MyUserContext } from '../context/MyUserProvider'
-import MyToastify from './MyToastify'
+
 
 
 export const SignIn = () => {
@@ -32,7 +32,7 @@ export const SignIn = () => {
       </form>
 
       <div><a href="#" onClick={()=>navigate("/pwreset")}>Elfelejtett jelszó</a></div>
-      {msg && <MyToastify {...msg}/>}
+      
     </div>
   )
 }

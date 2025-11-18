@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { MyUserContext } from '../context/MyUserProvider'
-import MyToastify from './MyToastify'
+
 
 const PwReset = () => {
-    const {msg, resetPassword} = useContext(MyUserContext)
+    const {resetPassword} = useContext(MyUserContext)
     const handleSubmit = async (event) => {
         event.preventDefault()
         const data = new FormData(event.currentTarget)
@@ -22,7 +22,7 @@ const PwReset = () => {
             <button>Új jelszó igénylése</button>
         </form>
       </div>
-      {msg && <MyToastify {...msg}/>}
+      
     </div>
   )
 }

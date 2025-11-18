@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { MyUserContext } from '../context/MyUserProvider'
-import MyToastify from './MyToastify'
+
 
 
 export const SignUp = () => {
     const navigate = useNavigate()
 
     const [loading, setLoading] = useState(false)
-    const {signUpUser, msg} = useContext(MyUserContext)
+    const {signUpUser} = useContext(MyUserContext)
 
       
 
@@ -41,7 +41,7 @@ export const SignUp = () => {
         <button disabled={loading}>{loading ? "Regisztráció folyamatban" : "Regisztráció"}</button>
       </form>
         
-        {msg && <MyToastify {...msg}/>}
+        
     </div>
   )
 }

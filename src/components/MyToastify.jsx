@@ -4,29 +4,25 @@ import { MyUserContext } from '../context/MyUserProvider'
 import { useNavigate } from 'react-router'
 
 
-const MyToastify = ({err, signUp, resetPw}) => {
+const MyToastify = () => {
     const {msg, setMsg} = useContext(MyUserContext)
     const navigate = useNavigate()
 
     useEffect(()=>{
-        if(err){
-            toast.error(err, {position:"top-center"})
-            setMsg({})
+        if(msg?.err){
+            toast.error(msg?.err, {position:"top-center"})
+            setMsg(null)
         }
-        else if(signUp){
-            toast.success(signUp, {position:"top-center"})
-            setMsg({})
-        }else if(resetPw){
-            toast.success(resetPw, {position:"top-center"})
-            setMsg({})
+        else if(msg?.signUp){
+            toast.success(msg?.signUp, {position:"top-center"})
+            navigate("/signin")
+            setMsg(null)
+        }else if(msg?.resetPw){
+            toast.success(msg?.resetPw, {position:"top-center"})
+            setMsg(null)
         }
-    },[err, signUp, resetPw])
-  return (
-    <>
-        <ToastContainer/>
-    </>
-    
-  )
+    },[msg])
+  return null;
 }
 
 export default MyToastify

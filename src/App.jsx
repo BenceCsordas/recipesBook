@@ -6,7 +6,9 @@ import { RecipesForm } from './pages/RecipesForm'
 import { SignIn } from './components/SignIn'
 import { SignUp } from './components/SignUp'
 import { Header } from './components/Header'
-import PwReset from './components/pwReset'
+import PwReset from './components/PwReset'
+import MyToastify from './components/MyToastify'
+import { ToastContainer } from 'react-toastify'
 
 function App() {
 
@@ -14,6 +16,8 @@ function App() {
   return (
     <div className="container">
     <Header/>
+    <MyToastify/>
+    <ToastContainer/>
     <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path='/recipes' element={<Recipes/>}/>
