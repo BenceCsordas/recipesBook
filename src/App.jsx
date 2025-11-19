@@ -9,6 +9,7 @@ import { Header } from './components/Header'
 import PwReset from './components/PwReset'
 import MyToastify from './components/MyToastify'
 import { ToastContainer } from 'react-toastify'
+import UserProfile from './pages/UserProfile'
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
       <Route path='/signin' element={<SignIn/>}/>
       <Route path='/signup' element={<SignUp/>}/>
       <Route path='/pwreset' element={<PwReset/>}/>
+      <Route path='/profile' element={<UserProfile/>}/>
     </Routes>
     </div>
   )

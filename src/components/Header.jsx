@@ -14,7 +14,14 @@ export const Header = () => {
       {user ? 
       
         <div className='headerBtn'>
-            <RxAvatar size={50} style={{color:"white"}} title={user?.displayName}/>
+          
+            <div onClick={()=>navigate('/profile')}>
+              
+              {user?.photoURL ? (<img style={{width:"30px", height:"30px", borderRadius:"50%", objectFit:"cover"}} src={user.photoURL} alt="" />) : 
+              <RxAvatar  size={50} style={{color:"white"}} title={user?.displayName} />
+              }
+            </div>
+          
             <span onClick={()=>logoutUser()}>
                 Kijelentkezés
             </span>
