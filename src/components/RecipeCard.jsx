@@ -18,7 +18,7 @@ export const RecipeCard = ({id, name,steps, ingredients, imgUrl, deleteUrl, uid,
             <div>
             <h2>{name}</h2>
             <div style={{display:"flex", gap:"2px"}}>
-            <img src={user.photoURL} alt="" className='userPhoto'/>
+            <img src={photoURL} alt="" className='userPhoto'/>
             <p>{displayName}</p>
             </div>
             {user && user.uid == uid ? <div>
