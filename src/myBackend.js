@@ -75,7 +75,7 @@ export const updateRecipe = async (id, updatedData, file) => {
     try {
         if (file) {
             const compressed = await imageCompression(file, { maxWidthOrHeight: 800, useWebWorker: true })
-            const result = await uploadToIMGBB(compressed)
+            const result = await uploadToImgBB(compressed)
             if (result) {
                 imgUrl = result.url
                 deleteUrl = result.delete_url
@@ -88,4 +88,9 @@ export const updateRecipe = async (id, updatedData, file) => {
     } catch (error) {
         console.log("nem sikerült a módosítás: " + error)
     }
+}
+
+//profile update:
+export const profileUpdate = async () => {
+    
 }

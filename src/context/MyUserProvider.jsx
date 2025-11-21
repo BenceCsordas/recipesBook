@@ -1,9 +1,10 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
+import { createUserWithEmailAndPassword, deleteUser, EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
 import { createContext } from 'react'
 import { auth } from '../fireBaseApp'
 import { disableNetwork } from 'firebase/firestore'
 import { useNavigate } from 'react-router'
+import { uploadImage } from '../cloudinary_utils'
 
 export const  MyUserContext =  createContext() //tartály az adatoknak
 export const MyUserProvider = ({children}) => {
@@ -39,7 +40,7 @@ export const MyUserProvider = ({children}) => {
     
     const logoutUser = async () => {
       await signOut(auth)
-      
+      setMsg({signIn:false})
     }
 
     const signInUser = async (email, password) => {
@@ -74,10 +75,37 @@ export const MyUserProvider = ({children}) => {
       }
     }
 
+    const avatarUpdate = async (file) => {
+      try {
+        const uploadResult = await uploadImage(file)
+        if(uploadResult?.url) await updateProfile(auth.currentUser, {photoURL:uploadResult.url})
+        setUser({...auth.currentUser})
+        setMsg(null)
+        setMsg({updateProfile:"Sikeres profil módosítás!"})
+      } catch (error) {
+        setMsg({err:error.message})
+      }
+    }
+
+    const deleteAccount = async (password) => {
+      try {
+        const credential = EmailAuthProvider.credential(auth.currentUser.email, password)
+        await reauthenticateWithCredential(auth.currentUser, credential)
+        await deleteUser(auth.currentUser)
+        setMsg(null)
+        setMsg({serverMsg:"Felhasználói fiók törölve!"})
+
+      } catch (error) {
+        console.log(error)
+        if(error.code == "auth/wrong-password") setMsg({err:"Hibás jelszó!"})
+        else setMsg({err:"Hiba történt a fiók törlésekor!"})
+      }
+    }
+
 
     return (
         <div>
-          <MyUserContext.Provider value={{user, signUpUser, logoutUser, signInUser, msg, setMsg, resetPassword}}>
+          <MyUserContext.Provider value={{user, signUpUser, logoutUser, signInUser, msg, setMsg, resetPassword, avatarUpdate, deleteAccount}}>
             {children}
           </MyUserContext.Provider>
         </div>
