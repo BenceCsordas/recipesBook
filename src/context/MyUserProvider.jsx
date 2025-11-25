@@ -5,6 +5,7 @@ import { auth } from '../fireBaseApp'
 import { disableNetwork } from 'firebase/firestore'
 import { useNavigate } from 'react-router'
 import { uploadImage } from '../cloudinary_utils'
+import { updateAvatar } from '../myBackend'
 
 export const  MyUserContext =  createContext() //tartály az adatoknak
 export const MyUserProvider = ({children}) => {
@@ -79,6 +80,8 @@ export const MyUserProvider = ({children}) => {
       try {
         const uploadResult = await uploadImage(file)
         if(uploadResult?.url) await updateProfile(auth.currentUser, {photoURL:uploadResult.url})
+        //el kell tárolni a public_id-t:
+        await updateAvatar(user.uid, uploadResult.public_id)
         setUser({...auth.currentUser})
         setMsg(null)
         setMsg({updateProfile:"Sikeres profil módosítás!"})

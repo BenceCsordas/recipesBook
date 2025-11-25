@@ -1,7 +1,8 @@
 import axios from "axios"
-import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot, deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot, deleteDoc, doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
 import {db} from "./fireBaseApp"
 import imageCompression from "browser-image-compression"
+import { deleteImage } from "./cloudinary_utils";
 
 
 const apikey = import.meta.env.VITE_IMGBB_API_KEY
@@ -90,7 +91,21 @@ export const updateRecipe = async (id, updatedData, file) => {
     }
 }
 
-//profile update:
-export const profileUpdate = async () => {
-    
+// új gyűjtemény kell az avatar public_id tárolására:
+
+export const updateAvatar = async (uid, public_id) => {
+    let oldPublicId = null
+    try {
+        const docRef = doc(db, "avatars", uid)//egy dokumentum referenciája
+        const docSnap = await getDoc(docRef)
+        if(!docSnap.exists()){
+            await setDoc(docRef, {uid, public_id})
+        }else {
+            oldPublicId = docSnap.data().public_id
+            await updateDoc(docRef, {public_id})
+        }if(oldPublicId) await deleteImage(oldPublicId)
+    } catch (error) {
+        console.log("Avatar módosítás/törlés hiba: ", error)
+    }
+
 }

@@ -12,13 +12,13 @@ export const RecipeCard = ({id, name,steps, ingredients, imgUrl, deleteUrl, uid,
   return (
     // onClick={()=>navigate('/recipe/'+id)}
     <div className='card'>
-           
+            
             <img src={imgUrl} alt={name} />
 
             <div>
             <h2>{name}</h2>
             <div style={{display:"flex", gap:"2px"}}>
-            <img src={photoURL} alt="" className='userPhoto'/>
+            {user && <img src={user.photoURL} alt="" className='userPhoto'/>}
             <p>{displayName}</p>
             </div>
             {user && user.uid == uid ? <div>
