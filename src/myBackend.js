@@ -109,3 +109,22 @@ export const updateAvatar = async (uid, public_id) => {
     }
 
 }
+
+export const deleteAvatar = async (uid) => {
+    console.log(uid)
+    let publicId = null
+    try {
+        const docRef = doc(db, "avatars", uid)
+        const docSnap = await getDoc(docRef)
+        //ha nincs ilyen dokumentum nincs teendő
+        if(!docSnap.exists) return
+        else{
+            publicId = docSnap.data().public_id
+            await deleteImage(publicId)
+            await deleteDoc(docRef) //firestore: avatars-ból törlünk
+        }
+    } catch (error) {
+        console.log("Avatar törlési hiba: ", error)
+    }
+
+}

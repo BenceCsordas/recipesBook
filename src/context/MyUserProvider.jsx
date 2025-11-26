@@ -97,13 +97,14 @@ export const MyUserProvider = ({children}) => {
         await deleteUser(auth.currentUser)
         setMsg(null)
         setMsg({serverMsg:"Felhasználói fiók törölve!"})
-
+        
       } catch (error) {
         console.log(error)
         if(error.code == "auth/wrong-password") setMsg({err:"Hibás jelszó!"})
         else setMsg({err:"Hiba történt a fiók törlésekor!"})
       }
     }
+
 
 
     return (
