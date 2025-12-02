@@ -9,7 +9,7 @@ const apikey = import.meta.env.VITE_IMGBB_API_KEY
 
 const imgUrl = "https://api.imgbb.com/1/upload?key=" + apikey
 const uploadToImgBB = async (file) => {
-
+    
     const myFormData = new FormData()
     myFormData.append("image", file)
     try {

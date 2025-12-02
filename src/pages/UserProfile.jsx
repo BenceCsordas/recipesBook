@@ -69,10 +69,11 @@ const UserProfile = () => {
           accept="image/*"
           onChange={handleFileChange}
         />
+        {preview && <img src={preview} alt="előnézet" />}
         <button type="submit" disabled={loading}>
           {loading ? "Mentés..." : "Profil frissítése"}
         </button>
-        {preview && <img src={preview} alt="előnézet" />}
+        
       </form>
       <button className="delUser" onClick={handleDelete}>
         Fiók törlése

@@ -42,7 +42,7 @@ export const MyCard = () => {
       <h1>
         {name}
       </h1>
-        <img src={user?.photoURL} alt="" style={{width:"50px", height:"50px", borderRadius:"50%"}}/>
+        {/* <img src={user?.photoURL} alt="" style={{width:"50px", height:"50px", borderRadius:"50%"}}/> */}
       <h2>
       {category}
       </h2>

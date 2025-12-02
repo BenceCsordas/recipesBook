@@ -13,22 +13,22 @@ export const RecipeCard = ({id, name,steps, ingredients, imgUrl, deleteUrl, uid,
     // onClick={()=>navigate('/recipe/'+id)}
     <div className='card'>
             
-            <img src={imgUrl} alt={name} />
+            <img src={imgUrl} alt={name} onClick={()=>navigate('/recipe/'+id)}/>
 
             <div>
             <h2>{name}</h2>
             <div style={{display:"flex", gap:"2px"}}>
-            {user && <img src={user.photoURL} alt="" className='userPhoto'/>}
+            {/* {user && <img src={user.photoURL} alt="" className='userPhoto'/>} */}
             <p>{displayName}</p>
             </div>
             {user && user.uid == uid ? <div>
-            <MdDeleteForever size={50} onClick={()=>deleteRecipe(id, deleteUrl)} className='del'/>
-            <CiEdit size={50} onClick={()=>navigate('/edit/'+id)} className='edit'/>
+            <MdDeleteForever style={{cursor:"pointer"}} size={50} onClick={()=>deleteRecipe(id, deleteUrl)} className='del'/>
+            <CiEdit style={{cursor:"pointer"}} size={50} onClick={()=>navigate('/edit/'+id)} className='edit'/>
             </div> : <div> </div>}
 
             </div>
-            <button onClick={()=>navigate('/recipe/'+id)}>Recept megtekintése</button>
-        
+            {/* <button onClick={()=>navigate('/recipe/'+id)}>Recept megtekintése</button>
+         */}
         
         
         {/* <div className='hozzavalokBase'>

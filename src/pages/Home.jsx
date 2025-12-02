@@ -10,7 +10,7 @@ export const Home = () => {
       <div>
         
       <button onClick={() => navigate("/recipes")}>
-        Főzz, posztolj, inspirálj !
+        Főzz, posztolj, inspirálj!
       </button>
       </div>
       
